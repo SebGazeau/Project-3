@@ -5,7 +5,7 @@ require("ts-node").register({
   files: true,
 });
 module.exports = {
-  contracts_build_directory: path.join(__dirname, "client/src/contracts"),
+  contracts_build_directory: path.join(__dirname, "client/docs/contracts"),
   /**
    * $ truffle test --network <network-name>
    */
