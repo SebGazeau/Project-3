@@ -1,6 +1,14 @@
 <template>
-	<div class="hello">
-		<h1>{{ msg }}</h1>
+	<div>
+		<div class="hello">
+			<h1>{{ msg }}</h1>
+		</div>
+		<div>
+			<p>You can participate in a voting session by sending your eth address by email to the administrator!</p>
+		</div>
+		<div>
+			<img class="w-50" src="../../public/img/Role-of-blockchain-in-voting.gif" alt="">
+		</div>
 	</div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-	<ul class="nav nav-pills nav-fill">
+	<ul class="nav nav-tabs nav-fill">
 		<li class="nav-item">
 			<router-link class="nav-link" :class="{active: tab.session}" aria-current="page" :to="'/admin/session'" @click="switchTab('view-session')">Session</router-link>
 		</li>

@@ -1,4 +1,5 @@
 <template>
+<div class="mx-5 p-3 border border-top-0">
 	<div :key="forReRender">
 		<AddVoter :id="parseInt($route.params.id)" @addVoter="uptView"/>
 		<div  v-if="voterSelected">
@@ -21,6 +22,7 @@
 		<div v-else>
 			<span >Select a session</span>
 		</div>
+	</div>
 	</div>
 </template>
 

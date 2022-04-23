@@ -2,8 +2,8 @@
 	<div>
 		<div class="card text-center">
 			<div class="card-header">
-				<div>Session {{id}}</div>
-				<div> with status {{$store.getters.getWorkflowStatus(status)}}</div>
+				<h3>Session {{id}}</h3>
+				<ProgressSession :status="status"/>
 			</div>
 			<div class="card-body">
 				<h5 class="card-title">Starting date for this session {{startDate}}</h5>
@@ -40,8 +40,12 @@ import Voter from "@/models/interface/Voter";
 import router from "@/router";
 import { Options, Vue } from "vue-class-component";
 import { mapActions } from "vuex";
+import ProgressSession from "./ProgressSession.vue";
 
 @Options({
+	components: {
+		ProgressSession
+	},
 	props: {
 		id: Number,
 		startDate: String,

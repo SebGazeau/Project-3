@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="mt-4 mx-5">
 		<TabAdmin />
 	</div>
 </template>

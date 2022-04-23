@@ -35,6 +35,7 @@ const actions = {
 				status: newState,
 			});
 		}
+		return true;
 	},
 	async startNewSession({ commit, getters }: { commit: any, getters: any  }, session: any){
 		const id = parseInt(getters.getSessions[0].key) + 1;

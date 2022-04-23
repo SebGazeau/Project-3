@@ -3,12 +3,12 @@ import Web3 from "web3";
 import Proposal from "@/models/interface/Proposal";
 const getDefaultState = (): any => {
 	return {
-		0:'RegisteringVoters',
-		1:'ProposalsRegistrationStarted',
-		2:'ProposalsRegistrationEnded',
-		3:'VotingSessionStarted',
-		4:'VotingSessionEnded',
-		5:'VotesTallied'
+		0:'Registering Voters',
+		1:'Proposals Registration Started',
+		2:'Proposals Registration Ended',
+		3:'Voting Session Started',
+		4:'Voting Session Ended',
+		5:'Votes Tallied'
 	};
 };
 const state = getDefaultState();

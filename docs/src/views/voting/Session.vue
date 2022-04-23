@@ -1,14 +1,19 @@
 <template>
-	<div :key="forReRender">
-		<div class="row row-cols-1 row-cols-md-3 g-4">
-			<div class="col" v-for="(session, _key) in sessions" :key="_key">
-				<CardSession v-bind:id="parseInt(session.key)"
-							v-bind:startDate="session.startDate"
-							v-bind:startVoting="session.startVoting"
-							v-bind:endDate="session.endDate"
-							v-bind:status="parseInt(session.status)"/>
+	<div v-if="!infoWaiting">
+		<div :key="forReRender">
+			<div class="row row-cols-1 row-cols-md-3 g-4">
+				<div class="col" v-for="(session, _key) in sessions" :key="_key">
+					<CardSession v-bind:id="parseInt(session.key)"
+								v-bind:startDate="session.startDate"
+								v-bind:startVoting="session.startVoting"
+								v-bind:endDate="session.endDate"
+								v-bind:status="parseInt(session.status)"/>
+				</div>
 			</div>
 		</div>
+	</div>
+	<div v-else class="spinner-border text-primary" role="status">
+		<span class="visually-hidden">Loading...</span>
 	</div>
 </template>
 
@@ -27,20 +32,28 @@ import StartSession from "@/components/session/StartSession.vue";
 	computed: mapGetters(['getSessions',]),
 })
 export default class Session extends Vue {
-	callSession!: () => void;
+	callSession!: () => boolean;
 	forReRender = 0;
 	arraySessions: any[]= [];
+	waiting = true;
 	get sessions(){
 		return this.$store.getters.getSessions
 	}
-	arraySession(){
-		this.callSession();
+	async arraySession(){
+		const res = await this.callSession();
+		if(res){
+			console.log('res', res)
+			this.waiting = false;
+		}
 	}
 	created(){
 		this.arraySession();
 	}
 	uptView(){
 		this.forReRender++;
+	}
+	get infoWaiting(): boolean {
+		return this.waiting;
 	}
 }
 </script>

@@ -13,7 +13,7 @@ import { Options, Vue } from "vue-class-component";
 export default class ButtonLogin extends Vue {
 	msg!: string;
 	isActive = (this.msg === 'Connexion') ? false : true;
-	get active() { return this.isActive }
+	get active() { return this.$store.getters.getIsLog; }
 }
 </script>
 

@@ -8,7 +8,7 @@
 				</div>
 			</li>
 		</ul>
-		<div>
+		<div class="m-2">
 			<button class="btn btn-primary" @click="forAddVoters()">
 				add voter<span v-if="Object.keys(listVoter).length > 1">s</span>
 			</button>

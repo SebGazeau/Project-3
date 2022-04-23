@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="border-bottom">
 		<div class="row" :class="{'was-validated':missingValue}">
 			<div class="col-md-4">
 				<label for="startDate" class="form-label">Start Date</label>
@@ -22,7 +22,7 @@
 					Please select date.
 				</div>
 			</div>
-			<div>
+			<div class="m-3">
 				<button class="btn btn-primary" @click="startSession()">start future voting session</button>
 			</div>
 		</div>
