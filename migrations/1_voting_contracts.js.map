@@ -1,0 +1,1 @@
+{"version":3,"file":"1_voting_contracts.js","sourceRoot":"","sources":["../migrations_ts/1_voting_contracts.ts"],"names":[],"mappings":";;AAAA,MAAM,MAAM,GAAG,SAAS,CAAC,OAAO,CAAC,QAAQ,CAAC,CAAA;AAE1C,MAAM,CAAC,OAAO,GAAG,UAAU,QAAQ;IACjC,QAAQ,CAAC,MAAM,CAAC,MAAM,CAAC,CAAA;AACzB,CAAsB,CAAA"}

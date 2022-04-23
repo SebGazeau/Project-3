@@ -1,0 +1,21 @@
+root: true
+env:
+  node: true
+extends: [
+  "plugin:vue/vue3-essential",
+  "eslint:recommended",
+  "@vue/typescript/recommended",
+  # "@vue/prettier",
+  # "@vue/prettier/@typescript-eslint",
+]
+parserOptions:
+  ecmaVersion: 2020
+rules: 
+  # no-console: 0
+  # no-debugger: 0
+  curly: warn
+  indent: [error, tab, { "MemberExpression": 0, "SwitchCase": 1 }]
+  vue/no-v-html: "off"
+  vue/html-indent: [warn, tab, { "attribute": 1, "alignAttributesVertically": true, }]
+  vue/attribute-hyphenation: [warn, "never", { "ignore": [] }]
+  '@typescript-eslint/ban-ts-ignore': 'off'
