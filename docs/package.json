@@ -8,6 +8,11 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "keywords": [
+    "vue",
+    "cli",
+    "typescript"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
