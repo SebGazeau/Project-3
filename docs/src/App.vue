@@ -15,21 +15,8 @@ import NavBar from "./views/nav/NavBar.vue";
 	components: {
 		NavBar,
 	},
-	methods: mapActions(["connect", "disconnect", "contractInstance"]),
 })
-export default class App extends Vue {
-	connect!: () => void;
-	public async login(){
-		console.log('login')
-		await this.connect();
-	}
-	created(){
-		console.log('created app', this.$store.getters.getIsLog)
-		// if(!this.$store.getters.getIsLog){
-		// 	this.login();
-		// }
-	}
-}
+export default class App extends Vue {}
 </script>
 <style lang="scss">
 #app {

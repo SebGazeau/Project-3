@@ -11,6 +11,7 @@
     "generate-types": "npx typechain --target=truffle-v5 'build/contracts/*.json' && npx typechain --target=truffle-v5 'client/src/contracts/*.json'",
     "generate-types-client": "npx typechain --target=truffle-v5 'client/src/contracts/*.json'",
     "migrate": "tsc -p ./tsconfig.migrate.json --outDir ./migrations && truffle migrate --reset",
+    "migrate-kovan": "tsc -p ./tsconfig.migrate.json --outDir ./migrations && truffle migrate --network kovan",
     "typecheck": "truffle compile && npm run generate-types && tsc --noEmit"
   },
   "author": "",
