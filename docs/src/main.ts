@@ -25,7 +25,7 @@ window.ethereum.on('accountsChanged', (info:Array<string>) =>{
 			router.push('/')
 		}
 	}
-})
+});
 interface ConnectInfo {
 	chainId: string;
 }

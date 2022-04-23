@@ -1,10 +1,6 @@
 import CurrentWeb3 from "@/models/interface/CurrentWeb3";
 import Voting from "@/contracts/Voting.json";
-// import store from "..";
-import User from "@/models/interface/User";
-import Web3 from "web3";
 import Network from "@/models/interface/Network";
-// import User from '@/'
 const getDefaultState = (): CurrentWeb3 => {
 	return {
 		web3: null,
