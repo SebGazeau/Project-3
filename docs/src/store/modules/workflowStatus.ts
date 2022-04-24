@@ -18,11 +18,8 @@ const getters = {
 
 const actions = {
 	async changeStatusSession({ commit, getters }: { commit: any, getters: any }, idSession: number) {
-		console.log('idSession', idSession);
 		const response = await getters.getContract.methods.nextWorkflowStatus(idSession).send({ from: getters.getAccount });
-		console.log('response', response);
 		const newStatus = response.events.WorkflowStatusChange.returnValues.newStatus;
-		console.log('newStatus', newStatus);
 		if(newStatus != undefined) {
 			commit('UPDATE_STATUS', {id: idSession, newStatus: parseInt(newStatus)});
 			return true;

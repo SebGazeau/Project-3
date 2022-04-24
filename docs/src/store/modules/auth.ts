@@ -53,8 +53,8 @@ const actions = {
 		);
 		const hasProposal = registered ? true : false;
 		const voter = getters.getInfoVoter;
-		const isRegistered = voter.isRegistered.find((el:any) => el.isSession === idSession);
-		return {isRegistered: voter.isRegistered.property, hasProposal,};
+		const isRegistered = voter.isRegistered.find((el:any) => el.idSession === idSession);
+		return {isRegistered: isRegistered.property, hasProposal,};
 	},
 	async getOneVoter({commit, getters}:{commit: any, getters: any}, idSession: number){
 		for(const session of getters.getSessions){
