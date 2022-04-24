@@ -10,7 +10,10 @@
 		</ul>
 		<div class="m-2">
 			<button class="btn btn-primary" @click="forAddVoters()">
-				add voter<span v-if="Object.keys(listVoter).length > 1">s</span>
+				<span v-if="waitingBtn">add voter<span v-if="Object.keys(listVoter).length > 1">s</span></span>
+				<div v-else class="spinner-border text-light" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
 			</button>
 		</div>
 	</div>
@@ -32,20 +35,16 @@ export default class AddVoter extends Vue {
 	addVoter!: (voter: any) => Promise<boolean>;
 	addVoters!: (voters: any) => Promise<boolean>;
 	listVoter = reactive({0:''});
+	waitingBtn = true;
 	date = reactive({
 		startDate : null,
 		startVoting : null,
 		endDate : null,
 	})
-	created(){
-		// this.id = parseInt(this.$route.params.id as string)
-	}
 	async forAddVoters(){
-		console.log('submit form', this.listVoter)
+		this.waitingBtn = false;
 		const arrayAddr = Object.values(this.listVoter).filter(v => v != '');
-		console.log('arr', arrayAddr)
 		if(arrayAddr.length >= 0){
-			console.log('call add address')
 			let res = false;
 			if(arrayAddr.length === 1){
 				res = await this.addVoter({addrVoter: arrayAddr[0], id:this.id});
@@ -53,16 +52,12 @@ export default class AddVoter extends Vue {
 				res = await this.addVoters({addrVoter: arrayAddr, id:this.id});
 			}
 			if(res){
+				this.waitingBtn = true;
 				this.$emit('addVoter');
 			}
-		}else{
-			// if(res){
-			// 	this.$emit('addSession');
-			// }
 		}
 	}
 	addLine(index: string){
-		console.log('id', parseInt(index) + 1)
 		this.listVoter = Object.assign(this.listVoter, {[parseInt(index)+1]: ''})
 	}
 }

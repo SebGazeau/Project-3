@@ -1,1 +1,0 @@
-.session-progress--container{display:flex;justify-content:space-evenly;align-items:center}.session-progress--item-empty{flex-grow:1;background-color:#adff2f;height:5px}.session-progress--item-number{flex-grow:0;background-color:green;width:20px;height:20px;border-radius:50%}.session-progress--item{opacity:.3}.session-progress--item-active{opacity:1}

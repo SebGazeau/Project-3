@@ -23,7 +23,12 @@
 				</div>
 			</div>
 			<div class="m-3">
-				<button class="btn btn-primary" @click="startSession()">start future voting session</button>
+				<button class="btn btn-primary" @click="startSession()">
+					<span v-if="waitingBtn">Start new voting session</span>
+					<div v-else class="spinner-border text-light" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -41,24 +46,24 @@ import { mapActions } from "vuex";
 export default class StartSession extends Vue {
 	startNewSession!: (session: any) => Promise<boolean>;
 	missingValue = false;
+	waitingBtn = true;
 	date = reactive({
 		startDate : null,
 		startVoting : null,
 		endDate : null,
 	})
 	async startSession(){
-		console.log('submit form')
+		this.waitingBtn = false;
 		for(const [key, date] of Object.entries(this.date)){
-			console.log('date',date)
-			console.log('key',key)
 			if(date === null){
 				this.missingValue = true;
+				this.waitingBtn = true;
 			}
 		}
 		if(!this.missingValue){
 			const res = await this.startNewSession(this.date);
-			console.log(res);
 			if(res){
+				this.waitingBtn = true;
 				this.$emit('addSession');
 			}
 		}

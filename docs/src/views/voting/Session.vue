@@ -1,6 +1,9 @@
 <template>
+	<div class="mt-3">
+		<h3>Here is the list of voting session</h3>
+	</div>
 	<div v-if="!infoWaiting">
-		<div :key="forReRender">
+		<div :key="forReRender" class="m-5">
 			<div class="row row-cols-1 row-cols-md-3 g-4">
 				<div class="col" v-for="(session, _key) in sessions" :key="_key">
 					<CardSession v-bind:id="parseInt(session.key)"
@@ -48,6 +51,12 @@ export default class Session extends Vue {
 	}
 	created(){
 		this.arraySession();
+		this.$store.getters.getContract.events.VotingStarted()
+		.on('data', (event:any) => {
+			if(event){
+				this.uptView();
+			}
+		});
 	}
 	uptView(){
 		this.forReRender++;

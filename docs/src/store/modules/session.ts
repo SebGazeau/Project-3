@@ -18,22 +18,24 @@ const actions = {
 		const lastIndex = await getters.getContract.methods.lastSession().call();
 		const status = await getters.getContract.getPastEvents('WorkflowStatusChange', {fromBlock: 0,toBlock: 'latest'});
 		for (let index = lastIndex; index >= 0; index--) {
-			const {startDate, startVoting, endDate} = await getters.getContract.methods.getVotingSession(index).call();
-			let newState = 0;
-			for(const ws of status){
-				if(ws.returnValues.index == index){
-					if(newState < parseInt(ws.returnValues.newStatus)){
-						newState = parseInt(ws.returnValues.newStatus)
+			if(index != 0){
+				const {startDate, startVoting, endDate} = await getters.getContract.methods.getVotingSession(index).call();
+				let newState = 0;
+				for(const ws of status){
+					if(ws.returnValues.index == index){
+						if(newState < parseInt(ws.returnValues.newStatus)){
+							newState = parseInt(ws.returnValues.newStatus)
+						}
 					}
 				}
+				commit("SET_SESSION",{
+					key: parseInt(index),
+					startDate: new Date(parseInt(startDate)).toLocaleDateString(),
+					startVoting: new Date(parseInt(startVoting)).toLocaleDateString(),
+					endDate: new Date(parseInt(endDate)).toLocaleDateString(),
+					status: newState,
+				});
 			}
-			commit("SET_SESSION",{
-				key: parseInt(index),
-				startDate: new Date(parseInt(startDate)).toLocaleDateString(),
-				startVoting: new Date(parseInt(startVoting)).toLocaleDateString(),
-				endDate: new Date(parseInt(endDate)).toLocaleDateString(),
-				status: newState,
-			});
 		}
 		return true;
 	},
