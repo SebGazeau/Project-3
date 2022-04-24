@@ -1,4 +1,4 @@
-# Alyra Projet DApp
+# Alyra Test Voting
 
 ## Description repository
 #### Racine 
@@ -16,11 +16,11 @@ suivi de :
 - en local : `npm run migrate`
 - reseau kovan : `npm run migrate-kovan`
 
-Pour le reseau kovan ne pas oublier de créer un `.env` pour fournir les variable nécessaire.
+Pour le reseau kovan ne pas oublier de créer un `.env` pour fournir les variables nécessaires.
 
 
 ### Pour utiliser la dApp
-La partie dApp est réalisé en VueJs 3 Typescript avec une gestion de components, 
+La partie dApp est réalisée en VueJs 3 Typescript avec une gestion de components, 
 de store et de routing.
 Une fois le clone terminé, rentrer dans le dossier  `docs` et lancer les commandes 
 
@@ -29,25 +29,25 @@ Une fois le clone terminé, rentrer dans le dossier  `docs` et lancer les comman
 `npm run serve`
 
 ## Description de la dApp
-L'application permet de gérer un système de session de vote. Chaque session de vote est divisé 
-en 4 temps, enregistrement des participants, ajout de propostions (limité à 10 par session),
-vote pour la propostion de son choix et le visualisation des résultats après calcul.
-Deux profils sont disctigués sur l'application admin et voter.
+L'application permet de gérer un système de session de vote. Chaque session de vote est divisée 
+en 4 temps, enregistrement des participant·e·s, ajout de propostions (limité à 10 par session),
+vote pour la propostion de son choix et la visualisation des résultats après calcul.
+Deux profils sont distigués sur l'application admin et voter.
 ### Partie admin 
 La partie administrateur est accessible uniquement par le compte qui a déployé 
 le smartcontract.  
 L'admin peut :
-- créer de nouvelle session de vote
-- ajouter un par un ou par lot les participants à une sessions
-- retirer un par un ou par lot les participants à une sessions 
-- changer le status de la sessions de vote
-- voir les propostions d'une sessions 
+- créer de nouvelles sessions de vote
+- ajouter un par un ou par lot les participant·e·s à une session
+- retirer un par un ou par lot les participant·e·s à une session 
+- changer le statut de la session de vote
+- voir les propostions d'une session
 ### Partie voter
 La partie pour les participant·e·s à une ou plusieurs sessions de vote.
 Les personnes connectées à cette partie de l'application peuvent voir l'ensemble 
-des sessions de vote. Par contre leurs actions sont limité par leurs droits et
+des sessions de vote. Par contre leurs actions sont limitées par leurs droits et
 la phase de la session.  
 Un·e participant·e peut :
 - ajouter une proposition
 - voter pour la propostion de son choix
-- voir le ou les resultat(s) d'un session
+- voir le ou les résultats d'une session
