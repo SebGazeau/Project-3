@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "14ad161326627181950b",
+    "revision": "4ad713baa95d212879e0",
     "url": "/css/admin.48137d32.css"
   },
   {
-    "revision": "f19d840936fdc043dfef",
+    "revision": "f2b281b9b4168b15cc57",
     "url": "/css/app.820a2c67.css"
   },
   {
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/Role-of-blockchain-in-voting.gif"
   },
   {
-    "revision": "9949702409052043860c24771c8929d0",
+    "revision": "7b9578a1142b83cc6156e66b7fbfe882",
     "url": "/index.html"
   },
   {
@@ -28,12 +28,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/js/about.f2d9f042.js"
   },
   {
-    "revision": "14ad161326627181950b",
-    "url": "/js/admin.bd918d76.js"
+    "revision": "4ad713baa95d212879e0",
+    "url": "/js/admin.b5d41486.js"
   },
   {
-    "revision": "f19d840936fdc043dfef",
-    "url": "/js/app.e20cc4cc.js"
+    "revision": "f2b281b9b4168b15cc57",
+    "url": "/js/app.4e5f7305.js"
   },
   {
     "revision": "20f2ea577c6891e34a5d",

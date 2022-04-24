@@ -12,7 +12,12 @@
 							:votedProposalId="voter.votedProposalId"
 				/>
 				<div>
-					<button class="btn btn-primary" @click="disabledVoters">disabled</button>
+					<button class="btn btn-primary" @click="disabledVoters">
+						<span v-if="waitingBtnDisabled">disabled voter</span>
+						<div v-else class="spinner-border text-light" role="status">
+							<span class="visually-hidden">Loading...</span>
+						</div>
+					</button>
 				</div>
 			</div>
 			<div class="w-100" v-else>
@@ -45,6 +50,7 @@ export default class ViewVoter extends Vue {
 	findVoters!: (idSession: number) => void;
 	voterSelected=true;
 	forReRender = 0;
+	waitingBtnDisabled = true;
 	created(){
 		if(this.$route.params.id){
 			this.findVoters(parseInt(this.$route.params.id as string))
@@ -55,25 +61,20 @@ export default class ViewVoter extends Vue {
 	arraySessions: any[]= [];
 	get voters():Voter[] | null{
 		const arr = this.$store.getters.getListVoters
-		//.filter()
 		return arr
 	}
 	uptView(){
 		this.forReRender++;
 	}
 	async disabledVoters(){
-		console.log("ref", this.$refs['voter-1'])
+		this.waitingBtnDisabled = false;
 		const arrayAddr = [];
 		for (const [key, value] of Object.entries(this.$refs) as any ) {
-			console.log("key", key)
-			console.log("value", value)
 			if(value[0].isCheck){
 				arrayAddr.push(value[0].address)
 			}
 		}
-		console.log("arrayAddr", arrayAddr);
 		if(arrayAddr.length >= 0){
-			console.log('call disabled address')
 			let res = false;
 			if(arrayAddr.length === 1){
 				res = await this.excludedVoter({addrVoter: arrayAddr[0], id:parseInt(this.$route.params.id as string)});
@@ -81,12 +82,9 @@ export default class ViewVoter extends Vue {
 				res = await this.excludedVoters({addrVoter: arrayAddr, id:parseInt(this.$route.params.id as string)});
 			}
 			if(res){
+				this.waitingBtnDisabled = true;
 				this.$emit('addVoter');
 			}
-		}else{
-			// if(res){
-			// 	this.$emit('addSession');
-			// }
 		}
 	}
 }

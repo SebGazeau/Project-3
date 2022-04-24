@@ -13,12 +13,19 @@
 				</p>
 			</div>
 			<div class="card-footer text-muted">
-				<div class="btn-group" role="group" aria-label="Basic outlined example" v-if="$store.getters.getIsOwner">
-					<button type="button" class="btn btn-outline-dark" @click="sessionSelect(id, 'view-proposal')">Proposal</button>
-					<button type="button" class="btn btn-outline-dark" @click="sessionSelect(id, 'view-voter')">Voter</button>
-					<button type="button" class="btn btn-outline-dark" @click="changeStatus" v-if="(status < 4)">Change Status</button>
-					<button type="button" class="btn btn-outline-dark" @click="calculTally" v-if="(status == 4)">Calcul Tally</button>
-					<button type="button" class="btn btn-outline-dark" @click="sessionSelect(id, 'view-result')" v-if="(status == 5)">Result</button>
+				<div  v-if="$store.getters.getIsOwner">
+					<div class="btn-group" role="group" aria-label="Basic outlined example" v-if="waitingBtn">
+						<button type="button" class="btn btn-outline-dark" @click="sessionSelect(id, 'view-proposal')">Proposal</button>
+						<button type="button" class="btn btn-outline-dark" @click="sessionSelect(id, 'view-voter')">Voter</button>
+						<button type="button" class="btn btn-outline-dark" @click="changeStatus" v-if="(status < 4)">Change Status</button>
+						<button type="button" class="btn btn-outline-dark" @click="calculTally" v-if="(status == 4)">Calcul Tally</button>
+						<button type="button" class="btn btn-outline-dark" @click="sessionSelect(id, 'view-result')" v-if="(status == 5)">Result</button>
+					</div>
+					<button v-else type="button" class="btn btn-outline-dark">
+						<div class="spinner-border text-dark" role="status">
+							<span class="visually-hidden">Loading...</span>
+						</div>
+					</button>
 				</div>
 				<div class="btn-group" role="group" aria-label="Basic outlined example" v-else>
 					<button type="button" class="btn btn-outline-dark" v-if="(status == 0)" disabled>Proposal pending</button>
@@ -27,7 +34,7 @@
 					<button type="button" class="btn btn-outline-dark" @click="sessionSelect(id, 'voting-proposal-vote')" v-if="(status == 3 && !voterHasVoted(id))">Vote for Proposal</button>
 					<button type="button" class="btn btn-outline-dark" v-if="(status == 3 && voterHasVoted(id))" disabled>You have already voted</button>
 					<button type="button" class="btn btn-outline-dark" v-if="(status == 4)" disabled>Tally pending</button>
-					<button type="button" class="btn btn-outline-dark" @click="sessionSelect(id, 'voting-result')" v-if="(status == 5)">Voter</button>
+					<button type="button" class="btn btn-outline-dark" @click="sessionSelect(id, 'voting-result')" v-if="(status == 5)">Result</button>
 				</div>
 			</div>
 		</div>
@@ -57,8 +64,9 @@ import ProgressSession from "./ProgressSession.vue";
 }) //changeStatusSession
 export default class CardSession extends Vue {
 	getOneVoter!: (id: number) => boolean;
-	changeStatusSession!: (session: any) => any;
-	callTally!: (session: any) => any;
+	changeStatusSession!: (session: any) => boolean;
+	callTally!: (session: any) => boolean;
+	waitingBtn = true;
 	id!: number;
 	startDate!: string;
 	startVoting!: string;
@@ -93,12 +101,21 @@ export default class CardSession extends Vue {
 	sessionSelect(id: number, cible: string){
 		router.push({name: cible, params: {id: id}})
 	}
-	changeStatus(){
-		this.changeStatusSession(this.id)
-		this.$emit('updateSession')
+	async changeStatus(){
+		this.waitingBtn = false;
+		const res = await this.changeStatusSession(this.id)
+		if(res){
+			this.waitingBtn = true;
+			this.$emit('updateSession')
+		}
 	}
-	calculTally(){
-		this.callTally(this.id)
+	async calculTally(){
+		this.waitingBtn = false;
+		const res = await this.callTally(this.id)
+		if(res){
+			this.waitingBtn = true;
+			this.$emit('updateSession')
+		}
 	}
 	uptView(){
 		this.forReRender++;

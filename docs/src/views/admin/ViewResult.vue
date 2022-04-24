@@ -46,7 +46,6 @@ export default class ViewResult extends Vue {
 	}
 	async winnerIs(){
 		const result = await this.winnerSession(parseInt(this.$route.params.id as string))
-		console.log(result)
 		if(result.winningProposalID.length === 1){
 			this.oneWinner = true;
 			this.winnerSolo = result as {winningProposalID: Array<string>, description: string , voteCount: number };

@@ -1,8 +1,6 @@
 <template>
 	<div class="home">
-		<!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
 		<HelloWorld msg="Welcome to Voting Project in Solidity" />
-		<!-- <div v-for="(session,key) of sessionInProgress" :key="key">{{session}}</div> -->
 	</div>
 </template>
 
@@ -17,19 +15,5 @@ import Session from "@/models/interface/Session";
 	},
 })
 export default class Home extends Vue {
-	// today = new Date().getTime();
-	// get sessionInProgress(){
-	// 	const sessions: Session[] = [];
-	// 	for (const session of this.$store.getters.getSessions){
-	// 		// const dateSession = new Date(session.startDate).getTime();
-	// 		console.log('today', this.today)
-	// 		// console.log(dateSession)
-	// 		// console.log(session);
-	// 		// if(session <= this.today){
-	// 		// 	sessions.push(session);
-	// 		// }
-	// 	}
-	// 	return sessions
-	// }
 }
 </script>

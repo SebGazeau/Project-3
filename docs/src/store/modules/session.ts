@@ -47,11 +47,6 @@ const actions = {
 			endDate: new Date(session.endDate).getTime()
 		}
 		await getters.getContract.methods.startVoting(_session,new BN(id)).send({ from: getters.getAccount });
-		const listAddress = await getters.getContract.getPastEvents('VotingStarted', {fromBlock: 0,toBlock: 'latest'});
-		console.log('listAddress',listAddress)
-		listAddress.map((el:any)=>{
-			console.log(el.returnValues);
-		})
 		commit("SET_SESSION_UNSHIFT",{
 			key: id,
 			startDate: new Date(session.startDate).toLocaleDateString(),
@@ -63,10 +58,7 @@ const actions = {
 	},
 	async callTally({ commit, getters }: { commit: any, getters: any  }, id: number){
 		const response = await getters.getContract.methods.tallyVotes(new BN(id)).send({ from: getters.getAccount });
-		console.log("Tally call object", response)
-		console.log('response', response);
 		const newStatus = response.events.WorkflowStatusChange.returnValues.newStatus;
-		console.log('newStatus', newStatus);
 		if(newStatus != undefined) {
 			commit('UPDATE_STATUS', {id: id, newStatus: parseInt(newStatus)});
 			return true;
@@ -75,8 +67,6 @@ const actions = {
 	async winnerSession({ commit, getters }: { commit: any, getters: any  }, id: number){
 		const winningProposalsID = await getters.getContract.methods.getWinningProposalsID(id).call();
 		const winningProposals = await getters.getContract.methods.getWinningProposals(id).call();
-		console.log('winningProposalsID', winningProposalsID)
-		console.log('winningProposals', winningProposals)
 		if(winningProposalsID.length > 1){
 			return {winningProposalID: winningProposalsID, winningProposals: winningProposals}
 		}else{
@@ -116,9 +106,6 @@ const mutations = {
 		}
 	},
 	UPDATE_STATUS(state:{listSession: Session[]},{id, newStatus}: {id: number, newStatus: number}){
-		console.log('state', state);
-		console.log('newStatus', newStatus);
-		console.log('id',id)
 		for(const st of state.listSession){
 			if(id === st.key){
 				st.status = newStatus;

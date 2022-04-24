@@ -2,15 +2,20 @@
 	<div v-if="proposals">
 		<ul class="list-group">
 			<li v-for="(proposal, _key) in proposals" :key="_key" class="list-group-item">
-				<div class="" v-if="forVoting && !voter.hasVoted">
+				<div class="" v-if="forVoting && !voterHasVoted(parseInt($route.params.id))">
 					<input class="form-check-input" type="radio" name="proposalVote" v-model="isCheck" :id='`proposal-${_key}`' :value="_key"/>
 					<label class="form-check-label" :for="`proposal-${_key}`">{{proposal.description}}</label>
 				</div>
 				<label v-else>{{proposal.description}}</label>
 			</li>
 		</ul>
-		<div v-if="forVoting && !voter.hasVoted">
-			<button class="btn btn-primary" @click="submitVote">Vote</button>
+		<div v-if="forVoting && !voterHasVoted(parseInt($route.params.id))">
+			<button class="btn btn-primary" @click="submitVote">Vote
+				<span v-if="waitingBtnVote">Vote</span>
+				<div v-else class="spinner-border text-light" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+			</button>
 		</div>
 	</div>
 	<div v-else>
@@ -30,10 +35,10 @@ export default class ListProposal extends Vue {
 	callProposals!: (idSession: number) => void;
 	setVoted!: ({vote,id}:{vote: number,id: number}) => boolean;
 	id = 0;
+	waitingBtnVote = true;
 	forVoting = false;
 	isCheck = -1;
 	created(){
-		console.log("created", this.$route)
 		if(this.$route.params.id){
 			this.callProposals(parseInt(this.$route.params.id as string))
 		}
@@ -42,21 +47,23 @@ export default class ListProposal extends Vue {
 
 		}
 	}
-	voter(_id: any){
+	voterHasVoted(_id: number): boolean{
 		const infoVoter = this.$store.getters.getInfoVoter;
-		const isRegistered = infoVoter.isRegistered.find((el:any) => el.isSession === _id);
-		const hasVoted = infoVoter.hasVoted.find((el:any) => el.isSession === _id);
-		return {isRegistered,hasVoted};
+		const hasVoted = infoVoter.hasVoted.find((el:any) => el.idSession === _id);
+		if(hasVoted){
+			return hasVoted.property;
+		}
+		return false;
 	}
 	get proposals():Proposal[] | null{
 		return this.$store.getters.getProposals
 	}
 	async submitVote(){
-		console.log("Submit", this.isCheck)
-		console.log("Submit", parseInt(this.$route.params.id as string))
+		this.waitingBtnVote = true;
 		if(this.isCheck != -1){
 			const res = await this.setVoted({vote:this.isCheck,id: parseInt(this.$route.params.id as string)});
 			if(res){
+				this.waitingBtnVote = false;
 				this.$router.go(-1);
 			}
 		}

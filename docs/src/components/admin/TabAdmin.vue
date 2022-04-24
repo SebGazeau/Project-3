@@ -38,7 +38,6 @@ export default class TabAdmin extends Vue {
 	}
 
 	onRouteChange(_route: any){
-		console.log('_route',_route)
 		this.switchTab(_route.name);
 	}
 }

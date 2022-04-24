@@ -34,35 +34,18 @@ const actions = {
 		return false;
 	},
 	async excludedVoter({ commit, getters }: { commit: any, getters: any }, {addrVoter, id}: {addrVoter: string, id: number}) {
-		console.log('callSession', getters.getContract);
-		console.log('addrVoter', addrVoter);
-		console.log('id', id);
 		await getters.getContract.methods.voterExcluded(addrVoter, new BN(id)).send({ from: getters.getAccount });
 		const listAddress = await getters.getContract.getPastEvents('VoterExcluded', {fromBlock: 0,toBlock: 'latest'});
-		console.log('listAddress',listAddress)
-		listAddress.map((el:any)=>{
-			console.log(el.returnValues);
-		})
 		return true;
 	},
 	async excludedVoters({ commit, getters }: { commit: any, getters: any }, {addrVoter, id}: {addrVoter: string[], id: number}) {
-		console.log('callSession', getters.getContract);
-		console.log('addrVoter', addrVoter);
-		console.log('id', id);
 		await getters.getContract.methods.votersExcluded(addrVoter, new BN(id)).send({ from: getters.getAccount });
-		const listAddress = await getters.getContract.getPastEvents('VotersExcluded', {fromBlock: 0,toBlock: 'latest'});
-		console.log('listAddress',listAddress)
-		listAddress.map((el:any)=>{
-			console.log(el.returnValues);
-		})
 		return true;
 	},
 	async findVoters({ commit, getters }: { commit: any, getters: any }, id: number) {
 		commit('RESET_VOTER')
 		const listAddress = await getters.getContract.getPastEvents('VoterRegistered', {fromBlock: 0,toBlock: 'latest'});
 		const listAddressArray = await getters.getContract.getPastEvents('VotersRegistered', {fromBlock: 0,toBlock: 'latest'});
-		console.log('listAddress',listAddress)
-		console.log('listAddressArray',listAddressArray)
 		let arrayAddrVoter: string[] = [];
 		listAddress.map((el:any)=>{
 			if(el.returnValues.index == id){
@@ -74,10 +57,7 @@ const actions = {
 				arrayAddrVoter = arrayAddrVoter.concat(el.returnValues.votersAddress)
 			}
 		});
-		console.log(arrayAddrVoter)
-		console.log('out if', state)
 		if(arrayAddrVoter.length > 0){
-			console.log('in if', state )
 			for(const address of arrayAddrVoter){
 				const {isRegistered, hasVoted, votedProposalId} = await getters.getContract.methods.getVoter(address,id).call();
 				commit('SET_VOTER', {address: address, isRegistered: isRegistered,hasVoted:hasVoted ,votedProposalId: parseInt(votedProposalId)})
@@ -87,7 +67,6 @@ const actions = {
 };
 const mutations = {
 	SET_VOTER: (state: {listVoter:Voter[]}, voter: Voter) => {
-		console.log('SET_VOTER')
 		if(state.listVoter.length > 0){
 			let exiting = false;
 			for(const st of state.listVoter){

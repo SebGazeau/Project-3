@@ -45,7 +45,6 @@ export default class Session extends Vue {
 	async arraySession(){
 		const res = await this.callSession();
 		if(res){
-			console.log('res', res)
 			this.waiting = false;
 		}
 	}

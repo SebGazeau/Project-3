@@ -88,7 +88,6 @@ const mutations = {
 		}
 	},
 	SET_PROPERTY_HAS_VOTED : (state: User,{idSession, property}: {idSession: number;property: boolean;}) => {
-		console.log('{idSession, property}',{idSession, property})
 		if(state.hasVoted.length > 0){
 			let exiting = false;
 			for(const st of state.hasVoted){
