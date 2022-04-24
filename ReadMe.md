@@ -51,3 +51,8 @@ Un·e participant·e peut :
 - ajouter une proposition
 - voter pour la propostion de son choix
 - voir le ou les résultats d'une session
+
+Lien : 
+Deploiement : https://master.d2xcavd7zo6hv5.amplifyapp.com/
+Video dApp : https://www.youtube.com/watch?v=cJVFzrOR8gY
+Video Dev et CI/CD : https://youtu.be/iXsrqOwJk_A
